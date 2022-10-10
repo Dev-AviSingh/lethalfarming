@@ -1,0 +1,30 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://Background/Images/Moon.png" type="Texture" id=1]
+[ext_resource path="res://Background/PathFollow2D.gd" type="Script" id=2]
+
+[sub_resource type="Curve2D" id=1]
+_data = {
+"points": PoolVector2Array( 4.48985, -25.9289, -4.48985, 25.9289, -53, 596.95, -125.716, 96.5317, 125.716, -96.5317, 78, 425, -152.655, 4.48985, 152.655, -4.48985, 535, 265.3, -105.511, -60.6129, 105.511, 60.6129, 975, 397.3, 0, 0, 0, 0, 1121, 606.025, 0, 0, 0, 0, 1223, 898, 0, 0, 0, 0, 509, 891, 0, 0, 0, 0, -250, 891, 0, 0, 0, 0, -53, 597, 0, 0, 0, 0, -53, 596.95 )
+}
+
+[node name="Sun" type="Node2D"]
+
+[node name="Path2D" type="Path2D" parent="."]
+self_modulate = Color( 0.501961, 0.6, 1, 0.701961 )
+curve = SubResource( 1 )
+
+[node name="PathFollow2D" type="PathFollow2D" parent="Path2D"]
+position = Vector2( 247, 796.95 )
+rotation = -1.2357
+h_offset = 300.0
+v_offset = 200.0
+rotate = false
+script = ExtResource( 2 )
+
+[node name="Sprite" type="Sprite" parent="Path2D/PathFollow2D"]
+position = Vector2( 79.7889, -364.443 )
+rotation = 1.2357
+scale = Vector2( 1, 0.825 )
+texture = ExtResource( 1 )
+region_rect = Rect2( 280.24, 106.098, 484.181, 476.309 )

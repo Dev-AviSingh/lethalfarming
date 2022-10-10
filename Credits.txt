@@ -1,0 +1,3 @@
+Generic platformer tiles by surt from opengamert    https://opengameart.org/users/surt
+platformer_sprites_pixelized_0			    https://opengameart.org/content/platformer-animations
+house						    https://all-free-download.com/free-vector/download/house_architecture_template_6853142.html

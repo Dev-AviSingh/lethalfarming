@@ -1,0 +1,128 @@
+[gd_scene load_steps=17 format=2]
+
+[ext_resource path="res://Player/Player.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Background/Images/Plain Black.png" type="Texture" id=2]
+[ext_resource path="res://Barriers/Rock/Rock.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Background/Images/Plain White.png" type="Texture" id=4]
+[ext_resource path="res://Background/Images/Clouds 2.png" type="Texture" id=5]
+[ext_resource path="res://Background/Sun.tscn" type="PackedScene" id=6]
+[ext_resource path="res://Background/Scrolling Background.tscn" type="PackedScene" id=7]
+[ext_resource path="res://Background/Images/Mountains.png" type="Texture" id=8]
+[ext_resource path="res://Birds/Bird Particles.tscn" type="PackedScene" id=9]
+[ext_resource path="res://House/House.tscn" type="PackedScene" id=10]
+[ext_resource path="res://Hurtables/Fire/Fire.tscn" type="PackedScene" id=11]
+[ext_resource path="res://Barriers/Simple Slab/Simple Slab.tscn" type="PackedScene" id=12]
+[ext_resource path="res://Buildings/Enemy Spawner.tscn" type="PackedScene" id=13]
+[ext_resource path="res://Barriers/Outpost/Oupost.tscn" type="PackedScene" id=14]
+
+[sub_resource type="Environment" id=2]
+background_mode = 4
+fog_sun_amount = 1.0
+fog_depth_curve = 2.2974
+glow_enabled = true
+glow_intensity = 1.28
+glow_bloom = 1.0
+glow_hdr_threshold = 0.8
+glow_hdr_luminance_cap = 0.9
+glow_hdr_scale = 2.73
+glow_bicubic_upscale = true
+adjustment_brightness = 0.82
+
+[sub_resource type="RectangleShape2D" id=3]
+extents = Vector2( 11200, 100 )
+
+[node name="Testing Scene" type="Node2D"]
+
+[node name="ParallaxBackground" type="ParallaxBackground" parent="."]
+
+[node name="Sky" type="ParallaxLayer" parent="ParallaxBackground"]
+modulate = Color( 0.533333, 0.533333, 0.533333, 1 )
+motion_offset = Vector2( 40, 0 )
+motion_mirroring = Vector2( 1024, 0 )
+
+[node name="Sprite" type="Sprite" parent="ParallaxBackground/Sky"]
+modulate = Color( 0.109804, 0, 0.266667, 1 )
+texture = ExtResource( 4 )
+centered = false
+
+[node name="Sun" parent="ParallaxBackground" instance=ExtResource( 6 )]
+position = Vector2( 0, -179 )
+
+[node name="Clouds" type="ParallaxLayer" parent="ParallaxBackground"]
+motion_mirroring = Vector2( 1920, 0 )
+
+[node name="Scrolling Background" parent="ParallaxBackground/Clouds" instance=ExtResource( 7 )]
+
+[node name="Sprite" type="Sprite" parent="ParallaxBackground/Clouds"]
+visible = false
+texture = ExtResource( 5 )
+centered = false
+
+[node name="Birds" type="ParallaxLayer" parent="ParallaxBackground"]
+motion_offset = Vector2( 80, 0 )
+motion_mirroring = Vector2( 1024, 0 )
+
+[node name="Birds" parent="ParallaxBackground/Birds" instance=ExtResource( 9 )]
+scale_amount = 0.4
+
+[node name="Mountains" type="ParallaxLayer" parent="ParallaxBackground"]
+motion_offset = Vector2( 100, 0 )
+motion_mirroring = Vector2( 1920, 0 )
+
+[node name="Sprite" type="Sprite" parent="ParallaxBackground/Mountains"]
+modulate = Color( 0.588235, 0.588235, 0.588235, 1 )
+position = Vector2( 0, 57 )
+texture = ExtResource( 8 )
+centered = false
+
+[node name="Base Platform" type="ParallaxLayer" parent="ParallaxBackground"]
+motion_offset = Vector2( 120, 0 )
+motion_mirroring = Vector2( 1024, 0 )
+
+[node name="Sprite" type="Sprite" parent="ParallaxBackground/Base Platform"]
+position = Vector2( 0, 483 )
+scale = Vector2( 10.24, 1.17 )
+texture = ExtResource( 2 )
+centered = false
+
+[node name="House" parent="." instance=ExtResource( 10 )]
+position = Vector2( 740, 371 )
+
+[node name="Fire" parent="." instance=ExtResource( 11 )]
+position = Vector2( 376, 477 )
+
+[node name="Character Entitites" type="Node2D" parent="."]
+
+[node name="Enemy Spawner" parent="Character Entitites" instance=ExtResource( 13 )]
+position = Vector2( 1891, 438 )
+scale = Vector2( 0.64, 0.64 )
+
+[node name="Player" parent="Character Entitites" instance=ExtResource( 1 )]
+position = Vector2( 516, 277 )
+chosenWeapon = "shotgun"
+
+[node name="Camera2D" type="Camera2D" parent="Character Entitites/Player"]
+current = true
+limit_left = 0
+limit_top = 0
+limit_bottom = 600
+smoothing_enabled = true
+
+[node name="Simple Slab" parent="Character Entitites" instance=ExtResource( 12 )]
+position = Vector2( 1085, 438 )
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource( 2 )
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+collision_layer = 3
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2( 511, 583 )
+shape = SubResource( 3 )
+
+[node name="Rock" parent="." instance=ExtResource( 3 )]
+position = Vector2( 1254, 438 )
+
+[node name="Outpost" parent="." instance=ExtResource( 14 )]
+position = Vector2( 1463, 483 )
